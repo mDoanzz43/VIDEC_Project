@@ -419,3 +419,6 @@ reports/results/
 reports/figures/
 ```
 
+## NOTE
+- Để tăng chất lượng inspection: Hãy tự cải thiện mô hình theo bài toán 
+- Tự cải thiện thêm các object 3D để làm phong phú vật thể và sự chân thật: https://sketchfab.com/feed
