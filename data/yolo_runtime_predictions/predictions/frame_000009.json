@@ -1,0 +1,78 @@
+{
+  "image_path": "data/runtime_teleop/frames/frame_000009.png",
+  "image_stem": "frame_000009",
+  "overlay_path": "data/yolo_runtime_predictions/overlays/frame_000009_overlay.png",
+  "mask_bbox_path": "data/yolo_runtime_predictions/mask_bbox/frame_000009_mask_bbox.png",
+  "predictions": [
+    {
+      "image_path": "data/runtime_teleop/frames/frame_000009.png",
+      "class_id": 2,
+      "class_name": "corrosion",
+      "confidence": 0.4302506744861603,
+      "bbox_xyxy": [
+        496.47344970703125,
+        248.42002868652344,
+        511.65753173828125,
+        268.279296875
+      ],
+      "bbox_xywh": [
+        504.06549072265625,
+        258.34967041015625,
+        15.18408203125,
+        19.859268188476562
+      ],
+      "mask_polygon_normalized": [
+        [
+          0.971875011920929,
+          0.484375
+        ],
+        [
+          0.971875011920929,
+          0.5015624761581421
+        ],
+        [
+          0.9781249761581421,
+          0.5015624761581421
+        ],
+        [
+          0.981249988079071,
+          0.504687488079071
+        ],
+        [
+          0.981249988079071,
+          0.5062500238418579
+        ],
+        [
+          0.989062488079071,
+          0.5140625238418579
+        ],
+        [
+          0.989062488079071,
+          0.515625
+        ],
+        [
+          0.9906250238418579,
+          0.515625
+        ],
+        [
+          0.995312511920929,
+          0.520312488079071
+        ],
+        [
+          0.995312511920929,
+          0.526562511920929
+        ],
+        [
+          0.9984375238418579,
+          0.526562511920929
+        ],
+        [
+          0.9984375238418579,
+          0.484375
+        ]
+      ],
+      "mask_area_px": 207,
+      "mask_path": "data/yolo_runtime_predictions/masks/frame_000009_mask_000_corrosion.png"
+    }
+  ]
+}

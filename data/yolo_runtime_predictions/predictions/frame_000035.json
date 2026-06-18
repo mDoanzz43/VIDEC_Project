@@ -1,0 +1,7 @@
+{
+  "image_path": "data/runtime_teleop/frames/frame_000035.png",
+  "image_stem": "frame_000035",
+  "overlay_path": "data/yolo_runtime_predictions/overlays/frame_000035_overlay.png",
+  "mask_bbox_path": "data/yolo_runtime_predictions/mask_bbox/frame_000035_mask_bbox.png",
+  "predictions": []
+}
