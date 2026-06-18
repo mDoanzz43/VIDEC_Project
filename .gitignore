@@ -26,7 +26,6 @@ data/raw/
 data/augmented/
 data/yolo_s2ds_seg4/
 data/runtime_teleop/
-data/yolo_runtime_predictions/
 data/yolo_capture_screen_predictions/
 data/inspection_evidence_packets/
 data/inspection_evidence/
@@ -34,7 +33,6 @@ data/predictions/
 data/generated/
 data/backgrounds/
 data/processed/
-data/capture_screen/
 data/phase4_textures/
 data/phase4_textures_source_full/
 data/phase4_textures_context_crop/
@@ -59,7 +57,6 @@ holoocean_world/
 
 # Generated reports
 reports/results/
-reports/figures/
 reports/summary.md
 reports/summary_details.md
 
