@@ -36,7 +36,7 @@ ViDEC_Project/
 │   │   ├── train_yolo11s_seg_s2ds.py              # Huấn luyện YOLO11s-seg trên dataset S2DS đã convert
 │   │   └── val_yolo11s_seg_s2ds.py                # Validate/test YOLO11s-seg trên validation hoặc test split
 │   │
-│   ├── evidence/                                  # Visulize and report
+│   ├── evidence/                                  # Visualize evidence packet và tạo report size comparison
 │   │   ├── build_inspection_evidence_packets.py   
 │   │   ├── merge_yolo_predictions_with_runtime_metadata.py         
 │   │   ├── report_size_comparison.py              
@@ -50,7 +50,7 @@ ViDEC_Project/
 │       ├── prepare_s2ds_subset.py                 # Tạo subset S2DS nhỏ để test nhanh pipeline
 │       └── visualize_yolo_seg_labels.py           # Visualize polygon/bbox sau khi convert sang YOLO format
 │
-├── data/                                          # Dữ liệu data (S2DS)
+├── data/                                          # Lưu data
 ├── reports/                                       
 ├── requirements.txt                               
 ├── README.md                                      
@@ -136,7 +136,8 @@ Cài Python client của HoloOcean từ source.
 
 ```text
 git clone https://github.com/byu-holoocean/HoloOcean.git holoocean
-pip install .
+cd holoocean
+pip install -e .
 ```
 
 Kiểm tra cài đặt:
@@ -189,7 +190,15 @@ cp configs/holoocean/test_ocean_map-HoveringCamera.json \
 
 ### Copy packaged Linux build
 
-Sau khi package hoặc chỉnh sửa map trong Unreal, cần sync lại build mới vào world ViDEC:
+Packaged ViDEC world: https://drive.google.com/file/d/1rKrLyESxGIB1ef2SbLZW_PrEh4EARGir/view?usp=sharing
+
+Sau khi tải về, giải nén vào thư mục world của HoloOcean: 
+```text
+mkdir -p ~/.local/share/holoocean/2.3.0/worlds
+unzip ViDEC_world_holoocean_2.3.0_linux.zip -d ~/.local/share/holoocean/2.3.0/worlds/
+```
+
+Mỗi khi thay đổi package hoặc chỉnh sửa map trong Unreal, cần sync lại build mới vào world ViDEC:
 ```text
 pkill -f Holodeck
 
