@@ -11,46 +11,52 @@ Runtime YOLO là evidence định tính nếu chưa có ground-truth mask align 
 ```text
 ViDEC_Project/
 ├── configs/
-│   ├── class_mapping.yaml
+│   ├── class_mapping.yaml                         # Mapping tên class/ID class dùng chung trong dự án
 │   ├── holoocean/
-│   │   ├── config.json
-│   │   ├── test_ocean_map-HoveringCamera.json
-│   │   └── auv_keyboard_teleop.yaml
+│   │   ├── config.json                            # Khai báo custom HoloOcean world tên ViDEC
+│   │   ├── test_ocean_map-HoveringCamera.json     # Scenario HoloOcean: world, AUV, sensor, camera, pose khởi tạo
+│   │   └── auv_keyboard_teleop.yaml               # Cấu hình điều khiển AUV bằng bàn phím và capture frame runtime
 │   └── yolo/
-│       └── s2ds_seg4.yaml
+│       └── s2ds_seg4.yaml                         # Config dataset YOLO segmentation 4 class
+│
 ├── scripts/
 │   ├── holoocean/
-│   │   ├── capture_videc_holoocean_runtime.py
-│   │   ├── diagnose_auv_action_space.py
-│   │   ├── generate_evidence_packets.py
-│   │   ├── make_auv_teleop_video.py
-│   │   ├── register_videc_holoocean_world.py
-│   │   ├── teleop_auv_keyboard_capture.py
-│   │   ├── test_videc_holoocean_make.py
-│   │   └── update_videc_scenario_pose.py
+│   │   ├── capture_videc_holoocean_runtime.py     # Capture frame và metadata từ HoloOcean runtime
+│   │   ├── diagnose_auv_action_space.py           # Kiểm tra action space/thruster control của AUV
+│   │   ├── generate_evidence_packets.py           
+│   │   ├── make_auv_teleop_video.py               
+│   │   ├── register_videc_holoocean_world.py      # Copy/đăng ký config world ViDEC vào thư mục HoloOcean local
+│   │   ├── teleop_auv_keyboard_capture.py         # Điều khiển AUV bằng bàn phím, capture RGB frame và metadata
+│   │   ├── test_videc_holoocean_make.py           # Test holoocean.make() với scenario ViDEC
+│   │   └── update_videc_scenario_pose.py          # Cập nhật pose/góc quay khởi tạo của AUV trong scenario JSON
+│   │
 │   ├── model/
-│   │   ├── evaluate.py
-│   │   ├── predict_yolo_runtime_inspection.py
-│   │   ├── train_yolo11s_seg_s2ds.py
-│   │   └── val_yolo11s_seg_s2ds.py
-│   ├── evidence/
-│   │   ├── build_inspection_evidence_packets.py
-│   │   ├── merge_yolo_predictions_with_runtime_metadata.py
-│   │   ├── report_size_comparison.py
-│   │   ├── visualize_inspection_evidence_packet.py
-│   │   └── visualize_yolo_inspection_evidence.py
+│   │   ├── evaluate.py                            # Script đánh giá/phân tích kết quả mô hình
+│   │   ├── predict_yolo_runtime_inspection.py     # Chạy YOLO11s-seg trên ảnh runtime, lưu JSON/overlay/mask/mask+bbox
+│   │   ├── train_yolo11s_seg_s2ds.py              # Huấn luyện YOLO11s-seg trên dataset S2DS đã convert
+│   │   └── val_yolo11s_seg_s2ds.py                # Validate/test YOLO11s-seg trên validation hoặc test split
+│   │
+│   ├── evidence/                                  # Visulize and report
+│   │   ├── build_inspection_evidence_packets.py   
+│   │   ├── merge_yolo_predictions_with_runtime_metadata.py         
+│   │   ├── report_size_comparison.py              
+│   │   ├── visualize_inspection_evidence_packet.py                           
+│   │   └── visualize_yolo_inspection_evidence.py  
+│   │
 │   └── process_data/
-│       ├── augment_s2ds_underwater.py
-│       ├── convert_s2ds_to_yolo_seg.py
-│       ├── inspect_s2ds.py
-│       ├── prepare_s2ds_subset.py
-│       └── visualize_yolo_seg_labels.py
-├── data/                 # ignored, local/generated only
-├── reports/              # ignored generated reports/figures
-├── requirements.txt
-├── README.md
-└── .gitignore
+│       ├── augment_s2ds_underwater.py             # Tạo underwater augmentation cho ảnh/mask S2DS
+│       ├── convert_s2ds_to_yolo_seg.py            # Chuyển mask màu S2DS sang YOLO segmentation polygon format
+│       ├── inspect_s2ds.py                        # Kiểm tra số lượng/cấu trúc ảnh và mask trong S2DS gốc
+│       ├── prepare_s2ds_subset.py                 # Tạo subset S2DS nhỏ để test nhanh pipeline
+│       └── visualize_yolo_seg_labels.py           # Visualize polygon/bbox sau khi convert sang YOLO format
+│
+├── data/                                          # Dữ liệu data (S2DS)
+├── reports/                                       
+├── requirements.txt                               
+├── README.md                                      
+└── .gitignore                                     
 ```
+
 
 Generated data, model weights, HoloOcean packaged Linux builds, training runs, old phase docs, and report outputs are not stored in Git.
 
@@ -86,26 +92,91 @@ Nếu chạy YOLO:
 ```bash
 pip install ultralytics
 ```
+## Cài đặt phần mềm phụ thuộc
 
-## Chuẩn bị HoloOcean world
+### Cài Unreal Engine 5.3.2
+ViDEC sử dụng custom world trong HoloOcean/Unreal Engine, vì vậy cần cài Unreal Engine trước khi build hoặc chỉnh sửa môi trường mô phỏng.
 
-Repo này dùng `configs/holoocean/` làm nguồn config HoloOcean chính:
+Link Unreal Engine:
 
-```text
-configs/holoocean/config.json
-configs/holoocean/test_ocean_map-HoveringCamera.json
-configs/holoocean/auv_keyboard_teleop.yaml
-```
+https://www.unrealengine.com/download
+
+Link hướng dẫn kết nối Epic Games với GitHub:
+
+https://www.unrealengine.com/en-US/ue-on-github
+
+Các bước tổng quát:
+
+Tạo hoặc đăng nhập tài khoản Epic Games.
+Kết nối tài khoản Epic Games với GitHub.
+Chấp nhận Unreal Engine EULA.
+Cài Unreal Engine 5.3.2.
+Kiểm tra Unreal Editor có thể mở project HoloOcean/Holodeck.
+
+Lưu ý: project này được build với Unreal Engine 5.3.2. Nên dùng đúng version này để tránh lỗi không tương thích khi package world.
+
+### Cài HoloOcean 2.3.0
+
+Trong setup này, HoloOcean được cài từ source vì cần làm việc với Unreal Engine và custom world.
+
+Tài liệu HoloOcean:
+
+https://byu-holoocean.github.io/holoocean-docs/
+
+Tài liệu HoloOcean UE5.3:
+
+https://byu-holoocean.github.io/holoocean-docs/UE5.3_Prerelease/index.html
+
+Các bước tổng quát:
+
+Đảm bảo tài khoản GitHub đã được liên kết với Epic Games.
+Clone source HoloOcean/Holodeck tương ứng với Unreal Engine 5.3.
+Tạo môi trường Python.
+Cài Python client của HoloOcean từ source.
+
+Ví dụ:
+
+cd ~/project /holoocean
+pip install -e .
+
+Kiểm tra cài đặt:
+
+python -c "import holoocean; print(holoocean.__version__)"
+
+Nếu import được holoocean và version là 2.3.0, môi trường Python đã nhận HoloOcean.
+
+### Chuẩn bị HoloOcean world
+
+Thư mục world của HoloOcean
+
+Sau khi cài HoloOcean, các world local nằm trong:
+
+~/.local/share/holoocean/2.3.0/worlds/
+
+Custom world của project này dùng tên: ViDEC
+
+Cấu trúc mong muốn:
+
+~/.local/share/holoocean/2.3.0/worlds/ViDEC/
+├── config.json
+├── test_ocean_map-HoveringCamera.json
+└── Linux/
 
 Trong đó:
 
-- `config.json`: khai báo custom world `ViDEC`.
-- `test_ocean_map-HoveringCamera.json`: scenario spawn AUV và sensor.
-- `auv_keyboard_teleop.yaml`: cấu hình teleop/capture cho keyboard script.
+config.json                         # Khai báo custom world ViDEC
+test_ocean_map-HoveringCamera.json  # Scenario spawn AUV, camera và sensor
+Linux/                              # Packaged build từ Unreal/Holodeck
 
-Copy config vào local HoloOcean world:
+Repo chỉ lưu các file cấu hình nhỏ tại:
 
-```bash
+configs/holoocean/
+├── config.json
+├── test_ocean_map-HoveringCamera.json
+└── auv_keyboard_teleop.yaml
+
+Copy config vào HoloOcean world local:
+```text
 mkdir -p ~/.local/share/holoocean/2.3.0/worlds/ViDEC
 
 cp configs/holoocean/config.json \
@@ -115,11 +186,26 @@ cp configs/holoocean/test_ocean_map-HoveringCamera.json \
   ~/.local/share/holoocean/2.3.0/worlds/ViDEC/
 ```
 
-Sau đó copy hoặc giải nén packaged Linux build vào:
+### Copy packaged Linux build
 
-```text
-~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux/
-```
+Sau khi package hoặc chỉnh sửa map trong Unreal, cần sync lại build mới vào world ViDEC:
+
+pkill -f Holodeck
+
+rm -rf ~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux
+
+cp -a ~/coding/holoocean/dist_videc/Linux \
+  ~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux
+
+Sau khi copy xong, kiểm tra:
+
+ls ~/.local/share/holoocean/2.3.0/worlds/ViDEC/
+
+Kết quả cần có:
+
+config.json
+test_ocean_map-HoveringCamera.json
+Linux/
 
 Lưu ý:
 
@@ -128,8 +214,6 @@ Lưu ý:
 - Sau khi package lại Unreal, cần sync build mới vào `~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux/`.
 
 ## Chuẩn bị model
-
-Model weight không commit lên GitHub.
 
 Đặt model fine-tuned tại:
 
@@ -141,9 +225,9 @@ hoặc truyền path trực tiếp bằng `--model`.
 
 ## Chuẩn bị data
 
-Data không commit lên GitHub.
+Dataset: https://github.com/ben-z-original/s2ds
 
-Nếu chạy process data, đặt S2DS tại:
+Sau khi tải dataset, đặt vào:
 
 ```text
 data/raw/s2ds/
@@ -155,8 +239,6 @@ Output data sẽ sinh ở:
 data/augmented/
 data/yolo_s2ds_seg4/
 ```
-
-Các folder này được ignore.
 
 ## Main Usage
 
@@ -327,12 +409,3 @@ reports/results/
 reports/figures/
 ```
 
-Các folder output này được ignore.
-
-## Notes
-
-- Không commit `data/`, `runs/`, `weights/`, `.pt`, packaged `Linux/`, hoặc output reports.
-- Không overwrite package `Ocean` mặc định của HoloOcean.
-- Không đặt AUV thủ công trong Unreal map nếu scenario đã spawn AUV.
-- Runtime predictions là định tính nếu chưa có ground truth runtime.
-- Repo GitHub nên chỉ giữ scripts, configs, README, requirements và `.gitignore`.
