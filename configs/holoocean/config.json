@@ -1,0 +1,22 @@
+{
+  "name": "ViDEC",
+  "platform": "Linux",
+  "version": "2.3.0",
+  "path": "Linux/Holodeck/Binaries/Linux/Holodeck",
+  "worlds": [
+    {
+      "name": "test_ocean_map",
+      "pre_start_steps": 20,
+      "env_min": [
+        -1008.0,
+        -1008.0,
+        -440.0
+      ],
+      "env_max": [
+        1008.0,
+        1008.0,
+        100.0
+      ]
+    }
+  ]
+}

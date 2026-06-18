@@ -1,0 +1,40 @@
+s2ds_colors:
+  "0,0,0": background
+  "255,255,255": crack
+  "255,0,0": spalling
+  "255,255,0": corrosion
+  "0,255,255": efflorescence
+  "0,255,0": vegetation
+  "0,0,255": control_point
+
+s2ds_to_videc:
+  background:
+    target: clean_background
+    role: negative
+
+  crack:
+    target: crack
+    role: defect
+
+  spalling:
+    target: spalling
+    role: defect
+
+  corrosion:
+    target: corrosion
+    role: defect
+
+  efflorescence:
+    target: hard_negative
+    subtype: stain_like
+    role: distractor
+
+  vegetation:
+    target: hard_negative
+    subtype: algae_like
+    role: distractor
+
+  control_point:
+    target: hard_negative
+    subtype: marker_artifact
+    role: distractor

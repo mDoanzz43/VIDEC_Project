@@ -1,0 +1,45 @@
+scenario: test_ocean_map-HoveringCamera
+agent_name: auv0
+output: data/runtime_teleop
+frame_output: data/runtime_teleop/frames
+metadata_output: data/runtime_teleop/metadata
+color_format: bgr
+fps: 10
+save_every: 3
+warmup_ticks: 20
+action_mode: thrusters_8
+control_mode: thrusters_8_empirical
+preview: true
+preview_scale: 1.0
+hold_ticks: 10
+video_fps_hint: 5
+action_scale: 15.0
+vertical_scale: 15.0
+forward_scale: 15.0
+strafe_scale: 5.0
+yaw_scale: 5.0
+yaw_step_degrees: 10.0
+yaw_tolerance_degrees: 3.0
+yaw_max_ticks: 90
+yaw_left_sign: -1
+terminal_note: "Terminal fallback only captures keys typed in the terminal. Tap keys; command-hold mode keeps action for hold_ticks."
+thruster_actions:
+  up: [15, 15, 15, 15, 0, 0, 0, 0]
+  down: [-15, -15, -15, -15, 0, 0, 0, 0]
+  forward: [0, 0, 0, 0, 15, 15, 15, 15]
+  backward: [0, 0, 0, 0, -15, -15, -15, -15]
+  strafe_left: [0, 0, 0, 0, 5, -5, -5, 5]
+  strafe_right: [0, 0, 0, 0, -5, 5, 5, -5]
+  yaw_left: [0, 0, 0, 0, 5, -5, 5, -5]
+  yaw_right: [0, 0, 0, 0, -5, 5, -5, 5]
+key_mapping:
+  w: up
+  s: down
+  q: forward
+  e: backward
+  a: strafe_left
+  d: strafe_right
+  u: yaw_left_10
+  i: yaw_right_10
+  x: stop
+  space: stop
