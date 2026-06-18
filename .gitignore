@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Local environment
+.env
+.env.*
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+weights/
+
+# Data and generated outputs
+data/raw/
+data/augmented/
+data/yolo_s2ds_seg4/
+data/runtime_teleop/
+data/yolo_runtime_predictions/
+data/yolo_capture_screen_predictions/
+data/inspection_evidence_packets/
+data/inspection_evidence/
+data/predictions/
+data/generated/
+data/backgrounds/
+data/processed/
+data/capture_screen/
+data/phase4_textures/
+data/phase4_textures_source_full/
+data/phase4_textures_context_crop/
+data/phase5_unreal_ready/
+data/phase5_uv_projection/
+
+# Training outputs
+runs/
+
+# Unreal/HoloOcean packaged world
+*.pak
+*.ucas
+*.utoc
+Linux/
+configs/holoocean/Linux/
+holoocean_world/
+*/Linux/
+
+# Media/output
+*.mp4
+*.avi
+
+# Generated reports
+reports/results/
+reports/figures/
+reports/summary.md
+reports/summary_details.md
+
+# Internal notes / old phase docs
+project_md/
+scripts_archive/
+trash/
+docs/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
