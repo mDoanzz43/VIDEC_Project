@@ -134,15 +134,15 @@ Clone source HoloOcean/Holodeck tương ứng với Unreal Engine 5.3.
 Tạo môi trường Python.
 Cài Python client của HoloOcean từ source.
 
-Ví dụ:
-
-cd ~/project /holoocean
-pip install -e .
+```text
+git clone https://github.com/byu-holoocean/HoloOcean.git holoocean
+pip install .
+```
 
 Kiểm tra cài đặt:
-
+```text
 python -c "import holoocean; print(holoocean.__version__)"
-
+```
 Nếu import được holoocean và version là 2.3.0, môi trường Python đã nhận HoloOcean.
 
 ### Chuẩn bị HoloOcean world
@@ -156,25 +156,26 @@ Sau khi cài HoloOcean, các world local nằm trong:
 Custom world của project này dùng tên: ViDEC
 
 Cấu trúc mong muốn:
-
+```text
 ~/.local/share/holoocean/2.3.0/worlds/ViDEC/
+
 ├── config.json
 ├── test_ocean_map-HoveringCamera.json
 └── Linux/
-
+```
 Trong đó:
-
+``` text
 config.json                         # Khai báo custom world ViDEC
 test_ocean_map-HoveringCamera.json  # Scenario spawn AUV, camera và sensor
 Linux/                              # Packaged build từ Unreal/Holodeck
-
+```
 Repo chỉ lưu các file cấu hình nhỏ tại:
-
+```text
 configs/holoocean/
 ├── config.json
 ├── test_ocean_map-HoveringCamera.json
 └── auv_keyboard_teleop.yaml
-
+```
 Copy config vào HoloOcean world local:
 ```text
 mkdir -p ~/.local/share/holoocean/2.3.0/worlds/ViDEC
@@ -189,18 +190,18 @@ cp configs/holoocean/test_ocean_map-HoveringCamera.json \
 ### Copy packaged Linux build
 
 Sau khi package hoặc chỉnh sửa map trong Unreal, cần sync lại build mới vào world ViDEC:
-
+```text
 pkill -f Holodeck
 
 rm -rf ~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux
 
 cp -a ~/coding/holoocean/dist_videc/Linux \
   ~/.local/share/holoocean/2.3.0/worlds/ViDEC/Linux
-
+```
 Sau khi copy xong, kiểm tra:
-
+```text
 ls ~/.local/share/holoocean/2.3.0/worlds/ViDEC/
-
+```
 Kết quả cần có:
 
 config.json
